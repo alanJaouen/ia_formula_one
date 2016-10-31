@@ -7,11 +7,15 @@ set(CMAKE_C_FLAGS_RELEASE "-O2")
 
 set(SRC
     src/formulaone.c
+    src/list.c
     # Add your source files here in SRC
 )
 
 set(OUT
     tests/test.c)
+
+include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(${CMAKE_SOURCE_DIR}/src)
 
 link_directories(${CMAKE_SOURCE_DIR}/control)
 
