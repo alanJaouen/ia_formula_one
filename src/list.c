@@ -1,6 +1,9 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "list.h"
 #include "control.h"
+
+struct list *g_list = NULL;
 
 struct list *list_add(struct list *l, float x, float y)
 {
@@ -12,28 +15,30 @@ struct list *list_add(struct list *l, float x, float y)
   struct list *n = malloc(sizeof (struct list));
   //TODO verif (
   n->pos = v;
-  n->next = NULL;
+  n->next = l;
   n->prev = NULL;
 
   if (!l)
     return n;
-  struct list *m = l;
-  while (m->next)
-    m = m->next;
-  m->next = n;
-  n->prev = m;
-  return l;
+  l->prev = n;
+  return n;
 }
 
-void list_rm(struct list *l)
+struct list *list_rm(struct list *l)
 {
   if (!l)
-    return;
-  if (l->prev)
-    l->prev->next = l->next;
-  if (l->next)
-    l->next->prev = l->prev;
+    return NULL;
+  struct list *n = l->next;
   free(l->pos);
   free(l);
+  return n;
 }
 
+void print_list(struct list *l)
+{
+  while (l)
+  {
+    printf("{x=%.2f y=%.2f}\n", l->pos->x, l->pos->y);
+    l = l->next;
+  }
+}
