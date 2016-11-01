@@ -30,7 +30,14 @@ struct vector2 set_angle(struct vector2 u, float x, float y)
   return u;
 }
 
+struct vector2 compute_vect(struct vector2 u, struct vector2 v)
+{
+  v.x -= u.x;
+  v.y -= u.y;
+  return v;
+}
+
 int is_colly(struct vector2 u, struct vector2 v)
 {
-  return (u.x * v.y - u.y * v.x < 0.215) ? 0 : 1;
+  return abs(u.x * v.y - u.y * v.x) < 0.268 ? 0 : 1;
 }
