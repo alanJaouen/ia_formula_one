@@ -1,5 +1,6 @@
 #include "vectors.h"
-
+#include <stdio.h>//TODO del this
+#include <math.h>
 float dot_product(struct vector2 u, struct vector2 v)
 {
   return u.x * v.x + v.y * u.y;
@@ -39,5 +40,6 @@ struct vector2 compute_vect(struct vector2 u, struct vector2 v)
 
 int is_colly(struct vector2 u, struct vector2 v)
 {
-  return abs(u.x * v.y - u.y * v.x) < 0.268 ? 0 : 1;
+  printf("%f\n", fabs(u.x * v.y - u.y * v.x) );
+  return fabs(u.x * v.y - u.y * v.x) < 0.0168 ? 1 : 0;
 }
