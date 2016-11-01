@@ -8,6 +8,7 @@ set(CMAKE_C_FLAGS_RELEASE "-O2")
 set(SRC
     src/formulaone.c
     src/list.c
+    src/vectors.c
     # Add your source files here in SRC
 )
 
