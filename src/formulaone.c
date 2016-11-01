@@ -13,25 +13,29 @@ enum move update(struct car *car)
 {
   if (!g_list)
     dijkstra(car->map);
-  if (car->position.x < g_list->pos->x + 0.5
-      && car->position.x > g_list->pos->x - 0.5
-      && car->position.y < g_list->pos->y + 0.5
-      && car->position.y > g_list->pos->x - 0.5
+  if (car->position.x < g_list->pos->x + 0.9
+      && car->position.x > g_list->pos->x - 0.9
+      && car->position.y < g_list->pos->y + 0.9
+      && car->position.y > g_list->pos->x - 0.9
       )
+  {
     g_list = list_rm(g_list);
+    printf("============\n");
+  }
+  printf("direction %f %f\n actuel %f %f\n========\n", g_list->pos->x, g_list->pos->y, car->position.x, car->position.y );
   struct vector2 tmp;
   tmp.x = g_list->pos->x;
   tmp.y = g_list->pos->y;
   struct vector2 cmp = compute_vect(car->position, tmp);
-  printf("x=%f y=%f\n", cmp.x, cmp.y);
-  if (is_colly(car->direction, cmp))
+  if (is_colly(car->direction, cmp)
+      && fabs(car->speed.x) + fabs(car->speed.y) < 2)
     return ACCELERATE;
 
-  /*else if (angle < 0)
+   if (get_angle2(car->direction, cmp) < 0)
       return  TURN_LEFT;
   else
-      return TURN_RIGHT;*/
-  return TURN_RIGHT;
+      return TURN_RIGHT;
+  return BRAKE;
 }
 
 struct node

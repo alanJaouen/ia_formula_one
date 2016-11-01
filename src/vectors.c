@@ -16,6 +16,23 @@ float get_angle(struct vector2 u, struct vector2 v)
   return acos(dot_product(u, v) / (norm(u) * norm(v)));
 }
 
+int sign(float x)
+{
+  if (x < 0)
+    return -1;
+  return 1;
+}
+
+float get_angle2(struct vector2 u, struct vector2 v)
+{
+  float na = sqrt(u.x * u.x + u.y * u.y);
+  float nb = sqrt(v.x * v.x + v.y * v.y);
+  float c = (u.x * u.y + v.x * v.y)/(na * nb);
+  float s = (u.x * v.y - v.x * u.y);
+  return sign(s) * acos(c);
+
+  return acos(dot_product(u, v) / (norm(u) * norm(v)));
+}
 struct vector2 add_scal(struct vector2 u, int n)
 {
   u.x += n;
@@ -40,6 +57,5 @@ struct vector2 compute_vect(struct vector2 u, struct vector2 v)
 
 int is_colly(struct vector2 u, struct vector2 v)
 {
-  printf("%f\n", fabs(u.x * v.y - u.y * v.x) );
-  return fabs(u.x * v.y - u.y * v.x) < 0.0168 ? 1 : 0;
+  return fabs(u.x * v.y - u.y * v.x) < 0.0968 ? 1 : 0;
 }
